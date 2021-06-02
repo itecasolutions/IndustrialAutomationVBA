@@ -1,2 +1,2 @@
 # IndustrialAutomationVBA
-Industrial VBA Library
+VBA Library for Industrial Automation and General Engineering
