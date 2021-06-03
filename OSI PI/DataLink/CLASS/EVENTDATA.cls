@@ -165,6 +165,75 @@ ErrorHandler:
     End Sub
 
 
+Public Sub GetEvent()
+        'SET PAGE CHARACTERISTICS
+            Application.Calculation = xlCalculationManual
+            Application.ScreenUpdating = False
+        'DECLARE VARIABLE
+            Dim substrings() As String
+            Dim unformatted_matrix, my_matrix, phase1_mtx, phase2_mtx, batch_mtx, task_mtx As Variant
+            Dim i, j As Integer
+            Dim LString As String
+            Dim lArray() As String
+            Dim procedural_modal() As String
+            Dim task_tag As String
+            Dim sizeFlag, sizeFlag1 As Integer
+            Dim firstPass, toggleStart As Boolean
+            startTime = CDate(startTime)
+            endTime = CDate(endTime)
+    
+            'DEFINE VARIABLES
+                ReDim my_matrix(20, 0)
+                ReDim phase1_mtx(3, 0)
+                ReDim phase2_mtx(3, 0)
+                sizeFlag = -1
+                sizeFlag1 = -1
+                firstPass = False
+                toggleStart = True
+                If IsArray(piTag) = True Then
+
+                Else
+                    unformatted_matrix = Application.Run("PICompDat", piTag, startTime, endTime, 9, "", "inside")
+                        'Move to my_matrix
+                            On Error Resume Next
+                            If unformatted_matrix(1) <> "No more values:" Then
+                            On Error Resume Next
+                               ' On Error GoTo ErrorHandler
+                                If UBound(unformatted_matrix, 2) > 1 Then
+                                 '   On Error GoTo ErrorHandler
+                                    For i = 1 To UBound(unformatted_matrix, 1)
+                                        If unformatted_matrix(i, 1) <> " " And unformatted_matrix(1) <> "No more values:" Then
+                                            If unformatted_matrix(i, 1) <> "Resize to show all values" Then
+                                                'Resize Array
+                                                    sizeFlag = sizeFlag + 1
+                                                    ReDim Preserve my_matrix(20, sizeFlag)
+                                                'Event
+                                                    my_matrix(1, sizeFlag) = unformatted_matrix(i, 2)
+                                                'Time
+                                                    my_matrix(0, sizeFlag) = Format(unformatted_matrix(i, 1), "mm/dd/yyyy hh:mm:ss")
+                                                End If
+                                        End If
+                                    Next i
+                                Else
+                                    sizeFlag = sizeFlag + 1
+                                    ReDim Preserve my_matrix(20, sizeFlag)
+                                    'Event
+                                        my_matrix(1, sizeFlag) = unformatted_matrix(1)
+                                    'Time
+                                        my_matrix(0, sizeFlag) = Format(unformatted_matrix(2), "mm/dd/yyyy hh:mm:ss")
+                                End If
+                                
+                                
+                            Else
+                            End If
+                End If
+
+        dataMatrix = my_matrix
+
+End Sub
+
+
+
 
 
 
