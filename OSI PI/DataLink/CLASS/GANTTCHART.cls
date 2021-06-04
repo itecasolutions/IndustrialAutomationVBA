@@ -563,3 +563,240 @@ Public Sub FillDeltaVPhaseTemplate(worksheetName As String, dataMatrix As Varian
     
         
 End Sub
+
+
+
+Public Sub GanttQuarterHourTemplate(worksheetName As String)
+   'SET PAGE CHARACTERISTICS
+        Application.Calculation = xlCalculationManual
+        Application.ScreenUpdating = False
+
+    Dim I, sheet_exists As Integer
+    sheet_exists = 0
+    For I = 1 To Sheets.Count
+       If Sheets(I).Visible = -1 Then
+           If Sheets(I).name = worksheetName Then
+                sheet_exists = 1
+           End If
+       End If
+    Next
+    If sheet_exists = 0 Then
+        Sheets.Add(After:=Sheets(Sheets.Count)).name = worksheetName
+    End If
+
+    Worksheets(worksheetName).Activate
+    'Delete Data
+        Cells.Select
+        Selection.Delete Shift:=xlUp
+    'No Grid Line
+        ActiveWindow.DisplayGridlines = False
+    'Create Template
+'        Range("A5").Select
+'        ActiveCell.FormulaR1C1 = "Phase"
+'        Range("B5").Select
+'        ActiveCell.FormulaR1C1 = "Phase Start Time"
+'        Range("C5").Select
+'        ActiveCell.FormulaR1C1 = "Phase End Time"
+'        Range("A1").Select
+'        ActiveCell.FormulaR1C1 = "Unit"
+'        Range("A2").Select
+'        ActiveCell.FormulaR1C1 = "Batch ID"
+'        Range("A3").Select
+'        ActiveCell.FormulaR1C1 = "Batch Start Time"
+'        Range("A4").Select
+'        ActiveCell.FormulaR1C1 = "Batch End Time"
+'        Range("A5").Select
+    'Bold
+        Range("A1:A5").Select
+        Selection.Font.Bold = True
+        Selection.Font.Size = 12
+'        Range("A5:C5").Select
+'        Selection.Font.Bold = True
+'        Selection.Font.Size = 12
+    
+    
+    Dim col, col1, col1Add, col2, col3, col3Add, timeInt As Integer
+    col = 2
+    col1Add = 3
+    col1 = col + col1Add
+    col2 = 2
+    col3Add = 95
+    col3 = col2 + col3Add
+    For x = 1 To 20
+        ActiveSheet.Range(Cells(1, col2), Cells(1, col3)).Select
+        Selection.Merge
+        
+        'Generate Border
+            Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+            Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+            With Selection.Borders(xlEdgeLeft)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlEdgeTop)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlEdgeBottom)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlEdgeRight)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlInsideVertical)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlInsideHorizontal)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+        col2 = col2 + col3Add + 1
+        col3 = col3 + col3Add + 1
+        timeInt = 1
+        For I = 1 To 24
+            Range(Columns(col), Columns(col1)).Select
+            Selection.ColumnWidth = 0.1
+            ActiveSheet.Range(Cells(2, col), Cells(5, col1)).Select
+            Selection.Merge
+            Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+            Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+            With Selection.Borders(xlEdgeLeft)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlEdgeTop)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlEdgeBottom)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlEdgeRight)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlInsideVertical)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            With Selection.Borders(xlInsideHorizontal)
+                .LineStyle = xlContinuous
+                .ColorIndex = 0
+                .TintAndShade = 0
+                .Weight = xlThin
+            End With
+            
+            
+            'Insert Time
+                ActiveCell.FormulaR1C1 = timeInt & ":00"
+                With Selection
+                    .HorizontalAlignment = xlRight
+                    .VerticalAlignment = xlCenter
+                    .WrapText = False
+                    .Orientation = 90
+                    .AddIndent = False
+                    .IndentLevel = 0
+                    .ShrinkToFit = False
+                    .ReadingOrder = xlContext
+                    .MergeCells = True
+                End With
+            timeInt = timeInt + 1
+            If timeInt = 24 Then
+                timeInt = 0
+            End If
+            col = col + col1Add + 1
+            col1 = col1 + col1Add + 1
+        Next I
+    Next x
+    
+    For I = 6 To 60
+        Rows(I).Select
+        Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+        Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+        Selection.Borders(xlEdgeLeft).LineStyle = xlNone
+        With Selection.Borders(xlEdgeBottom)
+            .LineStyle = xlContinuous
+            .ColorIndex = 0
+            .TintAndShade = 0
+            .Weight = xlMedium
+        End With
+        Selection.Borders(xlEdgeRight).LineStyle = xlNone
+        Selection.Borders(xlInsideVertical).LineStyle = xlNone
+        Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    Next I
+    
+    Range("A6:B6").Select
+    ActiveWindow.FreezePanes = True
+    
+    
+    'Grid
+        Range("A1:A60").Select
+        Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+        Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+        With Selection.Borders(xlEdgeLeft)
+            .LineStyle = xlContinuous
+            .ColorIndex = 0
+            .TintAndShade = 0
+            .Weight = xlThin
+        End With
+        With Selection.Borders(xlEdgeTop)
+            .LineStyle = xlContinuous
+            .ColorIndex = 0
+            .TintAndShade = 0
+            .Weight = xlThin
+        End With
+        With Selection.Borders(xlEdgeBottom)
+            .LineStyle = xlContinuous
+            .ColorIndex = 0
+            .TintAndShade = 0
+            .Weight = xlThin
+        End With
+        With Selection.Borders(xlEdgeRight)
+            .LineStyle = xlContinuous
+            .ColorIndex = 0
+            .TintAndShade = 0
+            .Weight = xlThin
+        End With
+        With Selection.Borders(xlInsideVertical)
+            .LineStyle = xlContinuous
+            .ColorIndex = 0
+            .TintAndShade = 0
+            .Weight = xlThin
+        End With
+        With Selection.Borders(xlInsideHorizontal)
+            .LineStyle = xlContinuous
+            .ColorIndex = 0
+            .TintAndShade = 0
+            .Weight = xlThin
+        End With
+    
+    
+
+        
+End Sub
