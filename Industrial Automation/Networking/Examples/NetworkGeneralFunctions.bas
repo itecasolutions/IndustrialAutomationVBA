@@ -191,11 +191,11 @@ Public Function FilterMtxOnString(dataMatrix As Variant, containsString As Strin
     ReDim my_matrix(UBound(dataMatrix, 1), 0)
     z = -1
 
-    For j = 1 To UBound(dataMatrix, 2)
+    For j = 0 To UBound(dataMatrix, 2)
         If InStr(dataMatrix(containCol, j), containsString) > 0 Then
             z = z + 1
             ReDim Preserve my_matrix(UBound(dataMatrix, 1), z)
-            For I = 1 To UBound(dataMatrix, 1)
+            For I = 0 To UBound(dataMatrix, 1)
                 my_matrix(I, z) = dataMatrix(I, j)
             Next I
         End If
@@ -214,11 +214,11 @@ Public Function FilterMtxOnWithOutString(dataMatrix As Variant, containsString A
     ReDim my_matrix(UBound(dataMatrix, 1), 0)
     z = -1
 
-    For j = 1 To UBound(dataMatrix, 2)
+    For j = 0 To UBound(dataMatrix, 2)
         If InStr(dataMatrix(containCol, j), containsString) = 0 Then
             z = z + 1
             ReDim Preserve my_matrix(UBound(dataMatrix, 1), z)
-            For I = 1 To UBound(dataMatrix, 1)
+            For I = 0 To UBound(dataMatrix, 1)
                 my_matrix(I, z) = dataMatrix(I, j)
             Next I
         End If

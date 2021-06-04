@@ -226,3 +226,15 @@ Public Function FilterMtxOnWithOutString(dataMatrix As Variant, containsString A
     FilterMtxOnWithOutString = my_matrix
 
 End Function
+
+
+
+Function CreateSheet(worksheetName As String)
+    On Error Resume Next
+    Sheets(worksheetName).Delete
+    On Error Resume Next
+    Sheets.Add(After:=Sheets(Sheets.Count)).name = worksheetName
+    On Error Resume Next
+End Function
+    
+   
