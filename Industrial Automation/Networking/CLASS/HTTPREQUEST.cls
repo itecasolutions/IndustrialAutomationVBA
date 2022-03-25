@@ -32,9 +32,9 @@ Option Explicit
         For n = 0 To headerDict.Count - 1
             objHTTP.setRequestHeader headerDict.Keys(n), headerDict.Items(n)
         Next n
-        For n = 0 To headerDict.Count - 1
+        For n = 0 To postBodyDict.Count - 1
             postBodyString = postBodyString & postBodyDict.Keys(n) & "=" & postBodyDict.Items(n) & "&"
         Next n
-        objHTTP.Send (postBodyString)
+        objHTTP.send (postBodyString)
         XmlHttp = objHTTP.responseText
     End Function
