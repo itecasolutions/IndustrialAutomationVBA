@@ -10,7 +10,7 @@ Sub ImportLibrary()
     Dim baseFolder As Variant
     'Configure baseFolder
 	base = ""
-    baseFolder = Array("\Industrial Automation\OPC", "\OSI PI\DataLink", "\Industrial Automation\General Computer", "\Industrial Automation\Networking")
+    baseFolder = Array("\Industrial Automation\OPC", "\OSI PI\DataLink", "\Industrial Automation\General Computer", "\Industrial Automation\Networking", "\Industrial Automation\EXCEL")
 	
 	For Each element In baseFolder
 		Set oFSO = CreateObject("Scripting.FileSystemObject")
